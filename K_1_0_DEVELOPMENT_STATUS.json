@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0-dev",
+  "branch": "dev/k-1.0.0",
+  "interpreter": "interpreter/k_1_0_dev.py",
+  "interpreter_sha256": "09c79f4dd2275270c316159ad5b1ba040bb5355beea148922fdf3ae67996fad1",
+  "roadmap_items": 19,
+  "stable_release": false
+}

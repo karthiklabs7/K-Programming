@@ -1,0 +1,5 @@
+K Programming 0.9.1-rc1
+5018e2a11b3cbc5f21e86a4eba33baac0c5c64d251cb4a09a33f91acb9154d97  README.md
+47d534062834b961357b88fe95115259ab23ca85f24b9ee54f228261142c4879  docs/K_LANGUAGE_GUIDE.md
+4d8e6cb43ce91f03dc3009d76fdf4854a5a8b4db95ae9a02fb4f511ba88b778e  examples/classes_09.k
+09c79f4dd2275270c316159ad5b1ba040bb5355beea148922fdf3ae67996fad1  interpreter/k_0_9_1_dev.py

@@ -943,3 +943,18 @@ else:
             run(file.read())
     except FileNotFoundError:
         print("K Error: File not found")
+
+
+# K_1_0_AST_RUNTIME_INTEGRATION
+def run_ast_source(source, environment=None, builtins=None):
+    """Run K source through the K 1.0 frontend and AST runtime."""
+    try:
+        from .k_1_0_ast_runner import run_ast
+    except ImportError:
+        from k_1_0_ast_runner import run_ast
+
+    return run_ast(
+        source,
+        environment=environment,
+        builtins=builtins
+    )

@@ -1,5 +1,7 @@
 import subprocess
 import sys
+import os
+from pathlib import Path
 
 checks = [
     ("K 1.0 foundation", [sys.executable, "tests/run_k10_foundation.py"]),
@@ -21,8 +23,16 @@ checks = [
 ]
 
 passed = failed = 0
+env = os.environ.copy()
+paths = [str(Path(__file__).resolve().parents[1] / "interpreter"),
+         str(Path(__file__).resolve().parents[1])]
+env["PYTHONPATH"] = os.pathsep.join(
+    paths + ([env["PYTHONPATH"]] if env.get("PYTHONPATH") else [])
+)
+env["K_CI_IMPORT_PATH"] = "1"
+
 for label, command in checks:
-    result = subprocess.run(command, capture_output=True, text=True)
+    result = subprocess.run(command, capture_output=True, text=True, env=env)
     if result.returncode == 0:
         print("[PASS] " + label)
         passed += 1

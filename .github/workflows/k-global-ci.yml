@@ -1,0 +1,49 @@
+name: K Programming Global CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  cross-platform-tests:
+    name: Tests on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Python syntax verification
+        run: python -m compileall -q interpreter
+
+      - name: K 1.0 full test suite
+        run: python tests/run_k10_full_suite.py
+
+      - name: K hello world execution
+        run: python interpreter/k_1_0_dev.py examples/hello.k
+
+      - name: Linux installer smoke test
+        if: runner.os == 'Linux'
+        run: |
+          bash installers/install.sh
+          "$HOME/.local/bin/k" examples/hello.k
+
+      - name: Windows installer smoke test
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./installers/install.ps1
+          & "$env:LOCALAPPDATA/K-Programming/k.cmd" examples/hello.k
